@@ -125,9 +125,9 @@ const Chats = () => {
                 <p className="text-center text-gray-600 text-sm mt-2">
                   {person.bio}
                 </p>
-                <div className="text-sm text-green-600 mt-2 flex items-center">
-                  <WhatshotIcon className="text-orange-600 mr-2" />
-                  <span>Streak: {streak} days</span>
+                <div className="text-sm text-red-700 mt-2 flex items-center">
+                  <WhatshotIcon className="text-orange-600 mr-1" />
+                  <span className="text-lg">{streak}</span>
                 </div>
               </div>
             );
