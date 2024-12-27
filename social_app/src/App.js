@@ -1,29 +1,25 @@
 import './App.css';
 import './index.css';
-import SigninForm from './_auth/forms/SigninForm';
-import SigninForm from './_auth/forms/SignupForm';
-import auth_home from './_auth/auth_main';
-import rootLayout from './_root'
-import {Home} from './_root/pages';
-import { Routes,Route } from 'react-router-dom';
+import SigninForm from './_auth/forms/SignIn';
+import SignupForm from './_auth/forms/SignUp';
+import AuthHome from './_auth/auth_main';
+import Home from './_root/pages/home';
+import { Routes, Route } from 'react-router-dom';
+import User from './_root/pages/User';
+
 function App() {
   return (
-    <main className="flex h-screen ">
+    <main className="flex h-screen">
       <Routes>
-        {/*public routes*/}
-        <Routes element={<auth_home />}>
-        <Route path="/sign-in" element={<SigninForm />}/>
-        <Route path="/sign-in" element={<SignupForm />}/>
-        </Routes>
-        {/*private routes*/}
-        <Routes element={<rootLayout />}>
-        <Route index element={<Home/>}/>
-        </Routes>
+        <Route path="/" element={<Home />} />
         
+        <Route path="Authentication" element={<AuthHome />}>
+          <Route path="sign-up" element={<SignupForm />} />
+          <Route path="sign-in" element={<SigninForm />} />
+        </Route>
+        <Route path='/user'element={<User></User>}>
+        </Route>
       </Routes>
-    <h1 className="text-red-700">
-      Hello world!
-    </h1>
     </main>
   );
 }
