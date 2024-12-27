@@ -3,7 +3,7 @@ import Logo from '../../Assets/Logo.png';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ParticlesComponent from '../../Components/Particles';
 import { Link } from 'react-router-dom';
-import header from '../../Components/header';
+import Footer from '../../Components/Footer';
 function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -33,6 +33,9 @@ function Home() {
             </button>
           </Link>
         </section>
+      </div>
+      <div className='relative'>
+      <Footer className></Footer>
       </div>
     </div>
   );
