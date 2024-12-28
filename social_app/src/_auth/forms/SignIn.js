@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../API/SigninSignUP'; 
+import { getUser } from '../../API/SigninSignUP';
 
 const SigninForm = ({ toggleForm }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const SigninForm = ({ toggleForm }) => {
     password: '',
   });
 
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -40,17 +40,18 @@ const SigninForm = ({ toggleForm }) => {
       return;
     }
 
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
 
     try {
-      const response = await loginUser(formData);
+      const response = await getUser(formData); 
       console.log(response.data);
-      setErrors({ email: '', password: '' }); // Clear errors on success
-      navigate('/');
+
+      setErrors({ email: '', password: '' });
+      navigate('/user'); 
     } catch (error) {
       setErrors({ email: 'Invalid email or password', password: '' });
     } finally {
-      setIsLoading(false); // End loading
+      setIsLoading(false);
     }
   };
 

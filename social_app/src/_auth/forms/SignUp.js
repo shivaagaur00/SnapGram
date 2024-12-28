@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../API/SigninSignUP';
+import { addUser } from '../../API/SigninSignUP'; // Assuming this function handles user registration
 
 const SignupForm = ({ toggleForm }) => {
   const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const SignupForm = ({ toggleForm }) => {
 
   const navigate = useNavigate();
 
-  // Handle input change for fields
+  // Handle input change for text fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -34,6 +34,7 @@ const SignupForm = ({ toggleForm }) => {
     }));
   };
 
+  // Handle file input change for profile picture
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFormData((prevData) => ({
@@ -59,15 +60,16 @@ const SignupForm = ({ toggleForm }) => {
     }
 
     try {
+      // Create FormData to handle file upload
       const formDataToSubmit = new FormData();
       Object.keys(formData).forEach((key) => {
-        formDataToSubmit.append(key, formData[key]);
+        if (formData[key]) formDataToSubmit.append(key, formData[key]);
       });
 
-      const response = await registerUser(formDataToSubmit);
+      const response = await addUser(formDataToSubmit);
       if (response && response.data) {
         console.log(response.data); // Logs the mock response data
-        navigate('/');
+        navigate('/user');
       } else {
         console.error("Failed to register user");
       }
@@ -134,12 +136,36 @@ const SignupForm = ({ toggleForm }) => {
         {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
       </div>
 
+      {/* Profile Picture Field */}
+      <div className="mb-4">
+        <label htmlFor="profilePicture" className="block text-[#feb47b]">Profile Picture</label>
+        <input
+          type="file"
+          id="profilePicture"
+          name="profilePicture"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="w-full p-3 border border-[#feb47b] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff7e5f]"
+        />
+      </div>
+
+      {/* Bio Field */}
+      <div className="mb-4">
+        <label htmlFor="bio" className="block text-[#feb47b]">Bio</label>
+        <textarea
+          id="bio"
+          name="bio"
+          value={formData.bio}
+          onChange={handleChange}
+          className="w-full p-3 border border-[#feb47b] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff7e5f]"
+        />
+      </div>
+
       {/* Submit Button */}
       <button type="submit" className="w-full bg-[#ff7e5f] text-white p-3 rounded-lg hover:bg-[#feb47b] transition duration-300 ease-in-out">
         Sign Up
       </button>
 
-      {/* Switch to Sign In */}
       <div className="mt-4 text-center">
         <button type="button" onClick={toggleForm} className="text-[#feb47b] hover:text-[#ff7e5f]">
           Already have an account? Sign In
