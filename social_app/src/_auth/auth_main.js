@@ -3,7 +3,7 @@ import SigninForm from './forms/SignIn';
 import SignupForm from './forms/SignUp';
 import BackgroundImage from '../Assets/BG5.webp';
 import Header from '../Components/header';
-
+import Footer from '../Components/Footer';
 const AuthHome = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,6 +43,7 @@ const AuthHome = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

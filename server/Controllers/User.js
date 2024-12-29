@@ -2,6 +2,7 @@ import User from "../Models/User.js";
 export const addUser=async(req,res)=>{
     try{
         const email=req.body.email;
+        console.log(req.body);
         const user=await User.findOne({email:email});
         if(user){
             return res

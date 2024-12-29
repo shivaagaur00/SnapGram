@@ -1,7 +1,9 @@
 import axios from "axios";
-const URL = "http://localhost:3000";
+const URL = "http://localhost:8000";
 export const addUser = async (data) => {
   try {
+    console.log(data.length);
+
     let res = await axios.post(`${URL}/addUser`, data);
     return res;
   } catch (error) {
